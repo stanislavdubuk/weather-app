@@ -1,0 +1,39 @@
+.root {
+  display: flex;
+
+  margin: 0 auto;
+
+  height: 120px;
+  width: 100%;
+  max-width: 400px;
+
+  .search {
+    flex-grow: 3;
+
+    height: 30px;
+    margin-right: 6px;
+
+    input {
+      height: 100%;
+    }
+  }
+
+  .button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 36px;
+    width: 60px;
+    flex-grow: 1;
+
+    border: none;
+
+    background-color: rgb(108, 155, 255);
+
+    color: white;
+    border-radius: 6px;
+
+    cursor: pointer;
+  }
+}

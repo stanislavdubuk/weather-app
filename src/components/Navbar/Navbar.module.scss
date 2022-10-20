@@ -1,0 +1,31 @@
+.root {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  height: 80px;
+
+  box-sizing: border-box;
+}
+
+.languageContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.selector {
+  display: flex;
+  align-items: center;
+
+  cursor: pointer;
+
+  transition: all 0.1s ease-in-out;
+
+  &:hover {
+    opacity: 0.6;
+  }
+}
+
+.icon {
+  margin-right: 4px;
+}
