@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { CardList } from '../../components/CardList';
 
+import { CardList } from '../../components/CardList';
 import { Container } from '../../components/Container';
 import { Search } from '../../components/Search';
 
