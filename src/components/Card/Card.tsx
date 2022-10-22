@@ -4,41 +4,45 @@ import cn from 'classnames';
 
 import { Svg } from '../Svg';
 
+import { CityType } from '../../lib/types';
 import { CARD_ANIMATION } from '../../lib/constants';
 import { useGetForecastByNameQuery } from '../../store/services/forecast';
+import { convertCtoF, getLocalTime } from '../../lib/utils';
 
 import s from './Card.module.scss';
 
 interface CardProps {
-  city: {
-    id: number;
-    name: string;
-  };
-  handleRemoveCard: (id: number) => void;
+  city: CityType;
+  handleRemoveCard: (cit: CityType) => void;
 }
 
 export const Card = ({ city, handleRemoveCard }: CardProps) => {
-  const { data, error, isLoading } = useGetForecastByNameQuery(city.name);
+  const { data, isLoading } = useGetForecastByNameQuery(city.name);
 
-  React.useEffect(() => {
-    if (!data) return;
-    console.log(data);
-  }, [data]);
-
-  if (isLoading) return null;
+  const [mode, setMode] = React.useState('celsius');
 
   const name = data?.city.name;
   const country = data?.city.country;
-  const id = data?.city.id;
+  // const id = data?.city.id;
+  const timezone = data?.city.timezone;
 
-  const date = data?.list[0].dt_txt;
-  const temperature = Math.floor(data?.list[0].main.temp);
-  const feelsLike = data?.list[0].main.feels_like;
+  const temp = Math.floor(data?.list[0].main.temp);
+  const feels = Math.floor(data?.list[0].main.feels_like);
   const humidity = data?.list[0].main.humidity;
   const pressure = data?.list[0].main.pressure;
-  const wind = data?.list[0].wind.speed;
+  const wind = data?.list[0].wind.speed.toFixed(1);
 
-  const handleRemove = () => handleRemoveCard(id);
+  const handleSwitchMode = () => {
+    if (mode === 'celsius') setMode('fahrenheit');
+    if (mode === 'fahrenheit') setMode('celsius');
+  };
+
+  const temperature = mode === 'celsius' ? temp : convertCtoF(temp);
+  const feelsTemp = mode === 'celsius' ? feels : convertCtoF(feels);
+
+  const handleRemove = () => handleRemoveCard(city);
+
+  if (isLoading) return null;
 
   return (
     <motion.li
@@ -59,7 +63,7 @@ export const Card = ({ city, handleRemoveCard }: CardProps) => {
           <div className={s.name}>
             {name}, {country}
           </div>
-          <div className={s.date}>{date}</div>
+          <div className={s.date}>{getLocalTime(timezone)}</div>
         </div>
         <div className={s.sun}>
           <Svg src='sunny' width={24} height={24} />
@@ -70,9 +74,20 @@ export const Card = ({ city, handleRemoveCard }: CardProps) => {
       <div className={s.bottom}>
         <div>
           <div className={s.temperature}>
-            +{temperature} <span> C°|F°</span>
+            {Boolean(temperature > 0) && '+'}
+            {temperature}
+            <div className={s.switch} onClick={handleSwitchMode}>
+              <span className={cn({ [s.active]: mode === 'celsius' })}>C°</span>
+              |
+              <span className={cn({ [s.active]: mode === 'fahrenheit' })}>
+                F°
+              </span>
+            </div>
           </div>
-          <div className={s.feels}>Feels like: {feelsLike}</div>
+          <div className={s.feels}>
+            Feels like: {Boolean(feelsTemp > 0) && '+'}
+            {feelsTemp}
+          </div>
         </div>
         <div className={s.right}>
           <div>

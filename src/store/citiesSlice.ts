@@ -1,47 +1,42 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-type cityType = {
+type CityType = {
   name: string;
   id: number;
 };
 
 interface CitiesState {
-  data: cityType[];
-
-  isLoading: boolean;
-  error: boolean;
+  data: CityType[];
+  currentCity: boolean;
 }
 
 const initialState: CitiesState = {
   data: [],
-
-  isLoading: false,
-  error: false,
+  currentCity: false,
 };
 
 export const citiesSlice = createSlice({
   name: 'cities',
   initialState,
   reducers: {
-    addCity: (state, action: PayloadAction<cityType>) => {
-      state.data = [action.payload, ...state.data];
+    hydrate: (state, action) => {
+      return action.payload;
     },
 
-    updateStart: (state) => {
-      state.isLoading = true;
+    add: (state, action: PayloadAction<CityType[]>) => {
+      state.data = [...action.payload, ...state.data];
     },
-    updateSuccess: (state, action: any) => {
-      state.isLoading = false;
+
+    remove: (state, action: PayloadAction<CityType[]>) => {
       state.data = action.payload;
     },
-    updateFailed: (state) => {
-      state.error = true;
-      state.isLoading = false;
+
+    setCurrentCity: (state, action: PayloadAction<boolean>) => {
+      state.currentCity = action.payload;
     },
   },
 });
 
-export const { addCity, updateStart, updateSuccess, updateFailed } =
-  citiesSlice.actions;
+export const { add, remove, hydrate, setCurrentCity } = citiesSlice.actions;
 
 export default citiesSlice.reducer;

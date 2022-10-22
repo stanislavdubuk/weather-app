@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useAppDispatch } from '../../lib/hooks';
-import { addCity } from '../../store/citiesSlice';
+import { add } from '../../store/citiesSlice';
 
 import s from './Search.module.scss';
 
@@ -18,7 +18,8 @@ export const Search = () => {
       name: searchQuery,
     };
 
-    dispatch(addCity(city));
+    dispatch(add([city]));
+    setSearchQuery('');
   };
 
   return (

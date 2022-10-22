@@ -18,5 +18,8 @@ export const useCurrentLocation = () => {
     location.getCurrentPosition((position) => setPosition(position));
   }, [location]);
 
-  return position;
+  return {
+    latitude: position?.coords.latitude.toString(),
+    longitude: position?.coords.longitude.toString(),
+  };
 };
