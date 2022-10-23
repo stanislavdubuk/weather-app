@@ -9,7 +9,7 @@ export const forecastApi = createApi({
   }),
   endpoints: (builder) => ({
     getForecastByName: builder.query<any, string>({
-      query: (name) => `?q=${name}&units=metric&appid=${API_KEY}`,
+      query: (query) => `?q=${query}&units=metric&appid=${API_KEY}`,
     }),
   }),
 });

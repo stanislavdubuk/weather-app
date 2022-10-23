@@ -39,6 +39,14 @@
   }
 }
 
+.belowZero {
+  background-color: rgb(236, 248, 255);
+
+  .value {
+    color: rgb(80, 118, 255);
+  }
+}
+
 .chart {
   height: 100px;
 }

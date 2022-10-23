@@ -17,13 +17,14 @@ interface CardProps {
 }
 
 export const Card = ({ city, handleRemoveCard }: CardProps) => {
-  const { data, isLoading } = useGetForecastByNameQuery(city.name);
+  const { data, isLoading } = useGetForecastByNameQuery(
+    `${city.name},${city.country}`
+  );
 
   const [mode, setMode] = React.useState('celsius');
 
   const name = data?.city.name;
   const country = data?.city.country;
-  // const id = data?.city.id;
   const timezone = data?.city.timezone;
 
   const temp = Math.floor(data?.list[0].main.temp);
@@ -44,12 +45,14 @@ export const Card = ({ city, handleRemoveCard }: CardProps) => {
 
   if (isLoading) return null;
 
+  const isBelowZero = temp < 0;
+
   return (
     <motion.li
       initial={{ scale: 0 }}
       animate={CARD_ANIMATION}
       layout
-      className={cn(s.root)}
+      className={cn(s.root, { [s.belowZero]: isBelowZero })}
     >
       <Svg
         className={s.close}

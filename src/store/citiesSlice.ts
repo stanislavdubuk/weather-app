@@ -23,8 +23,8 @@ export const citiesSlice = createSlice({
       return action.payload;
     },
 
-    add: (state, action: PayloadAction<CityType[]>) => {
-      state.data = [...action.payload, ...state.data];
+    add: (state, action: PayloadAction<CityType>) => {
+      state.data = [...state.data, action.payload];
     },
 
     remove: (state, action: PayloadAction<CityType[]>) => {

@@ -1,0 +1,39 @@
+.root {
+  display: flex;
+
+  margin: 0 auto;
+  margin-bottom: 60px;
+
+  width: 100%;
+  max-width: 500px;
+}
+
+.select {
+  width: 60%;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-left: 6px;
+
+  height: 36px;
+  width: 100px;
+
+  border: none;
+
+  background-color: rgb(108, 155, 255);
+
+  color: white;
+  border-radius: 6px;
+
+  cursor: pointer;
+}
+
+.disabled {
+  opacity: 0.6;
+
+  cursor: not-allowed;
+}
