@@ -5,3 +5,30 @@ export const CARD_ANIMATION = {
     type: 'tween',
   },
 };
+
+export const CHART_OPTIONS = {
+  plugins: {
+    tooltip: {
+      callbacks: {
+        title: () => '',
+      },
+    },
+  },
+  maintainAspectRatio: false,
+  scales: {
+    x: {
+      grid: {
+        display: false,
+      },
+    },
+    y: {
+      display: true,
+      ticks: {
+        display: true,
+      },
+      grid: {
+        display: false,
+      },
+    },
+  },
+};

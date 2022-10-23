@@ -27,7 +27,6 @@ export const Select = () => {
   };
 
   const handleChange = (selectedOption: SelectOption) => {
-    console.log(selectedOption);
     const city = {
       name: selectedOption.value,
       id: selectedOption.id,
