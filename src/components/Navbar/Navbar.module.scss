@@ -9,6 +9,8 @@
 }
 
 .languageContainer {
+  position: relative;
+
   display: flex;
   justify-content: flex-end;
 }
@@ -28,4 +30,36 @@
 
 .icon {
   margin-right: 4px;
+}
+
+.arrow {
+  margin-left: 4px;
+
+  transition: all 0.3s ease-in-out;
+}
+
+.active {
+  transform: rotate(180deg);
+}
+
+.dropdown {
+  position: absolute;
+  top: 36px;
+
+  display: none;
+
+  width: 100px;
+  height: 100px;
+
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 4px 10px;
+  border-radius: 8px;
+
+  background-color: white;
+
+  cursor: pointer;
+}
+
+.showSelector {
+  display: flex;
+  flex-direction: column;
 }

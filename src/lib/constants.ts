@@ -6,6 +6,21 @@ export const CARD_ANIMATION = {
   },
 };
 
+export const LANGUAGES = [
+  {
+    value: 'en',
+    label: 'EN',
+  },
+  {
+    value: 'ru',
+    label: 'RU',
+  },
+  {
+    value: 'ua',
+    label: 'UA',
+  },
+];
+
 export const CHART_OPTIONS = {
   plugins: {
     tooltip: {

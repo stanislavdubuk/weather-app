@@ -11,6 +11,7 @@ import { CardChart } from './components/CardChart';
 import { CardBottom } from './components/CardBottom';
 
 import s from './Card.module.scss';
+import { useAppSelector } from '../../lib/hooks';
 
 interface CardProps {
   city: CityType;
@@ -18,8 +19,10 @@ interface CardProps {
 }
 
 export const Card = ({ city, handleRemoveCard }: CardProps) => {
+  const languageSelector = useAppSelector((state) => state.cities.language);
+
   const { data, isLoading } = useGetForecastByNameQuery(
-    `${city.name},${city.country}`
+    `${city.name},${city.country}&lang=${languageSelector}`
   );
 
   if (isLoading) return null;

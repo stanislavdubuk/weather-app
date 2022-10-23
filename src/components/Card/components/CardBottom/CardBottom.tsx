@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import cn from 'classnames';
 
 import { convertCtoF } from '../../../../lib/utils';
@@ -11,11 +12,16 @@ interface CardBottomProps {
 }
 
 export const CardBottom = ({ data, isBelowZero }: CardBottomProps) => {
+  const { t } = useTranslation();
+
   const [mode, setMode] = React.useState('celsius');
 
+  const isCelsius = mode === 'celsius';
+  const isFahrenheit = mode === 'fahrenheit';
+
   const handleSwitchMode = () => {
-    if (mode === 'celsius') setMode('fahrenheit');
-    if (mode === 'fahrenheit') setMode('celsius');
+    if (isCelsius) setMode('fahrenheit');
+    if (isFahrenheit) setMode('celsius');
   };
 
   const temp = Math.floor(data?.list[0].main.temp);
@@ -24,8 +30,8 @@ export const CardBottom = ({ data, isBelowZero }: CardBottomProps) => {
   const pressure = data?.list[0].main.pressure;
   const wind = data?.list[0].wind.speed.toFixed(1);
 
-  const temperature = mode === 'celsius' ? temp : convertCtoF(temp);
-  const feelsTemp = mode === 'celsius' ? feels : convertCtoF(feels);
+  const temperature = isCelsius ? temp : convertCtoF(temp);
+  const feelsTemp = isCelsius ? feels : convertCtoF(feels);
 
   return (
     <div className={s.root}>
@@ -34,26 +40,30 @@ export const CardBottom = ({ data, isBelowZero }: CardBottomProps) => {
           {Boolean(temperature > 0) && '+'}
           {temperature}
           <div className={s.switch} onClick={handleSwitchMode}>
-            <span className={cn({ [s.active]: mode === 'celsius' })}>C°</span>|
-            <span className={cn({ [s.active]: mode === 'fahrenheit' })}>
-              F°
-            </span>
+            <span className={cn({ [s.active]: isCelsius })}>C°</span>|
+            <span className={cn({ [s.active]: isFahrenheit })}>F°</span>
           </div>
         </div>
         <div className={s.feels}>
-          Feels like: {Boolean(feelsTemp > 0) && '+'}
+          {`${t('feelsLike')}`}: {Boolean(feelsTemp > 0) && '+'}
           {feelsTemp}
         </div>
       </div>
       <div className={cn(s.right, { [s.isBelowZero]: isBelowZero })}>
         <div>
-          Wind: <span className={s.value}> {wind} m/s </span>
+          {`${t('wind')}`}:{' '}
+          <span className={s.value}>
+            {wind} {`${t('ms')}`}
+          </span>
         </div>
         <div>
-          Humidity: <span className={s.value}> {humidity}% </span>{' '}
+          {`${t('humidity')}`}: <span className={s.value}> {humidity}% </span>
         </div>
         <div>
-          Pressure: <span className={s.value}> {pressure} Pa </span>
+          {`${t('pressure')}`}:{' '}
+          <span className={s.value}>
+            {pressure} {`${t('pa')}`}
+          </span>
         </div>
       </div>
     </div>

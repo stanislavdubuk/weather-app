@@ -1,16 +1,21 @@
-import cn from 'classnames';
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { GroupBase, OptionsOrGroups } from 'react-select';
 import AsyncSelect from 'react-select/async';
+import cn from 'classnames';
+
 import { useAppDispatch, useAppSelector } from '../../lib/hooks';
 import { CityType, SelectOption } from '../../lib/types';
-import { getCitiesByName } from '../../store/api';
+
+import { getCitiesByName } from '../../store/thunks';
 import { add } from '../../store/citiesSlice';
 
 import s from './Select.module.scss';
 
 export const Select = () => {
   const dispatch = useAppDispatch();
+
+  const { t } = useTranslation();
 
   const cities = useAppSelector((state) => state.cities.data);
 
@@ -60,14 +65,14 @@ export const Select = () => {
         className={s.select}
         loadOptions={handleLoadOptions}
         onChange={handleChange}
-        placeholder='Search...'
+        placeholder={`${t('search')}...`}
       />
       <button
         disabled={isDisabled}
         className={cn(s.button, { [s.disabled]: isDisabled })}
         onClick={handleAddCity}
       >
-        Add
+        {`${t('add')}`}
       </button>
     </div>
   );

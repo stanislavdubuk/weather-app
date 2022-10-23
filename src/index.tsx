@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 
 import { getLocalStorage } from './lib/localStorage';
+import './i18n';
 import { store } from './store';
 import App from './App';
 

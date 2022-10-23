@@ -5,14 +5,16 @@ type CityType = {
   id: number;
 };
 
-interface CitiesState {
+interface ApplicationState {
   data: CityType[];
   currentCity: boolean;
+  language: string;
 }
 
-const initialState: CitiesState = {
+const initialState: ApplicationState = {
   data: [],
   currentCity: false,
+  language: 'en',
 };
 
 export const citiesSlice = createSlice({
@@ -34,9 +36,14 @@ export const citiesSlice = createSlice({
     setCurrentCity: (state, action: PayloadAction<boolean>) => {
       state.currentCity = action.payload;
     },
+
+    setLanguage: (state, action: PayloadAction<string>) => {
+      state.language = action.payload;
+    },
   },
 });
 
-export const { add, remove, hydrate, setCurrentCity } = citiesSlice.actions;
+export const { add, remove, hydrate, setCurrentCity, setLanguage } =
+  citiesSlice.actions;
 
 export default citiesSlice.reducer;

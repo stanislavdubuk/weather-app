@@ -1,4 +1,4 @@
-export const getLocalTime = (timezone: number) => {
+export const getLocalTime = (timezone: number, locale: string) => {
   const d = new Date();
   const localTime = d.getTime();
   const localOffset = d.getTimezoneOffset() * 60000;
@@ -15,7 +15,7 @@ export const getLocalTime = (timezone: number) => {
       ? `0${dateObj.getMinutes()}`
       : dateObj.getMinutes();
 
-  return `${dateObj.getDate()} ${dateObj.toLocaleString('default', {
+  return `${dateObj.getDate()} ${dateObj.toLocaleString(locale, {
     month: 'long',
   })}, ${hours}:${minutes}`;
 };
