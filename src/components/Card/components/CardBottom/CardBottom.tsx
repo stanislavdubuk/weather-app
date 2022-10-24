@@ -2,29 +2,34 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import cn from 'classnames';
 
-import { convertCtoF } from '../../../../lib/utils';
 import { ETemperature } from '../../../../lib/enums';
-import { CityData } from '../../../../lib/types';
+import { CityData, CityType } from '../../../../lib/types';
+import { useAppDispatch } from '../../../../lib/hooks';
+import { setTemperatureMode } from '../../../../store/citiesSlice';
 
 import s from './CardBottom.module.scss';
 
 interface CardBottomProps {
   data: CityData;
+  city: CityType;
   isBelowZero: boolean;
 }
 
-export const CardBottom = ({ data, isBelowZero }: CardBottomProps) => {
+export const CardBottom = ({ data, city, isBelowZero }: CardBottomProps) => {
+  const dispatch = useAppDispatch();
+
   const { t } = useTranslation();
 
-  const [mode, setMode] = React.useState<ETemperature>(ETemperature.Celsius);
+  const isCelsius = city.mode === ETemperature.Celsius;
+  const isFahrenheit = city.mode === ETemperature.Fahrenheit;
 
-  const isCelsius = mode === ETemperature.Celsius;
-  const isFahrenheit = mode === ETemperature.Fahrenheit;
-
-  const handleSwitchMode = () => {
-    if (isCelsius) setMode(ETemperature.Fahrenheit);
-    if (isFahrenheit) setMode(ETemperature.Celsius);
-  };
+  const handleSwitchMode = () =>
+    dispatch(
+      setTemperatureMode({
+        ...city,
+        mode: isCelsius ? ETemperature.Fahrenheit : ETemperature.Celsius,
+      })
+    );
 
   const temp = Math.floor(data?.list[0].main.temp);
   const feels = Math.floor(data?.list[0].main.feels_like);
@@ -32,23 +37,20 @@ export const CardBottom = ({ data, isBelowZero }: CardBottomProps) => {
   const pressure = data?.list[0].main.pressure;
   const wind = data?.list[0].wind.speed.toFixed(1);
 
-  const temperature = isCelsius ? temp : convertCtoF(temp);
-  const feelsTemp = isCelsius ? feels : convertCtoF(feels);
-
   return (
     <div className={s.root}>
       <div>
         <div className={s.temperature}>
-          {Boolean(temperature > 0) && '+'}
-          {temperature}
+          {Boolean(temp > 0) && '+'}
+          {temp}
           <div className={s.switch} onClick={handleSwitchMode}>
             <span className={cn({ [s.active]: isCelsius })}>C°</span>|
             <span className={cn({ [s.active]: isFahrenheit })}>F°</span>
           </div>
         </div>
         <div className={s.feels}>
-          {`${t('feelsLike')}`}: {Boolean(feelsTemp > 0) && '+'}
-          {feelsTemp}
+          {`${t('feelsLike')}`}: {Boolean(feels > 0) && '+'}
+          {feels}
         </div>
       </div>
       <div className={cn(s.right, { [s.isBelowZero]: isBelowZero })}>

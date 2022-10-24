@@ -1,10 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ELanguage } from '../lib/enums';
-
-type CityType = {
-  name: string;
-  id: number;
-};
+import { CityType } from '../lib/types';
 
 interface ApplicationState {
   data: CityType[];
@@ -34,6 +30,19 @@ export const citiesSlice = createSlice({
       state.data = action.payload;
     },
 
+    setTemperatureMode: (state, action: PayloadAction<CityType>) => {
+      state.data = state.data.map((city: CityType) => {
+        if (city.id === action.payload.id) {
+          return {
+            ...city,
+            mode: action.payload.mode,
+          };
+        }
+
+        return city;
+      });
+    },
+
     setCurrentCity: (state, action: PayloadAction<boolean>) => {
       state.currentCity = action.payload;
     },
@@ -44,7 +53,13 @@ export const citiesSlice = createSlice({
   },
 });
 
-export const { add, remove, hydrate, setCurrentCity, setLanguage } =
-  citiesSlice.actions;
+export const {
+  add,
+  remove,
+  hydrate,
+  setTemperatureMode,
+  setCurrentCity,
+  setLanguage,
+} = citiesSlice.actions;
 
 export default citiesSlice.reducer;

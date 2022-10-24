@@ -1,7 +1,10 @@
+import { ETemperature } from './enums';
+
 export type CityType = {
   id: number;
   name: string;
   country?: string;
+  mode?: ETemperature;
 };
 
 export type SelectOption = {

@@ -11,6 +11,7 @@ import { getCitiesByName } from '../../store/thunks';
 import { add } from '../../store/citiesSlice';
 
 import s from './Select.module.scss';
+import { ETemperature } from '../../lib/enums';
 
 export const Select = () => {
   const dispatch = useAppDispatch();
@@ -36,6 +37,7 @@ export const Select = () => {
       name: selectedOption.value,
       id: selectedOption.id,
       country: selectedOption.country,
+      mode: ETemperature.Celsius,
     };
 
     setSelectedValue(selectedOption);

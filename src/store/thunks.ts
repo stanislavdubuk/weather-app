@@ -3,6 +3,7 @@ import { Dispatch } from '@reduxjs/toolkit';
 
 import { add, setCurrentCity } from './citiesSlice';
 import { CitySearchType } from '../lib/types';
+import { ETemperature } from '../lib/enums';
 
 const API_KEY = '50f1413b72d5eb20783f3d5e09ac2865';
 const SEARCH_API_KEY = 'qQkPKLawjqMGEAhS5xQaQg==XWLoGrOxDKjuaNCQ';
@@ -20,6 +21,7 @@ export const getCityByCoords = async (
     const city = {
       id: Math.floor(Math.random() * 2000),
       name: res.data[0].name,
+      mode: ETemperature.Celsius,
     };
 
     dispatch(add(city));
