@@ -39,7 +39,7 @@ export const Card = ({ city, handleRemoveCard }: CardProps) => {
       initial={{ scale: 0 }}
       animate={CARD_ANIMATION}
       layout
-      className={cn(s.root, { [s.belowZero]: isBelowZero })}
+      className={cn(s.root, { [s.belowZero]: !isLoading && isBelowZero })}
     >
       <CardTop city={city} data={data} handleRemoveCard={handleRemoveCard} />
 

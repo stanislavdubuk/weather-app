@@ -25,9 +25,6 @@ export const getLocalTime = (timezone: number, locale: ELocale) => {
   })}, ${hours}:${minutes}`;
 };
 
-export const convertCtoF = (celsius: number) =>
-  Math.floor((celsius * 9) / 5 + 32);
-
 export const getHighestTempByDay = (forecasts: Forecast[]) => {
   const days = forecasts.reduce(
     (

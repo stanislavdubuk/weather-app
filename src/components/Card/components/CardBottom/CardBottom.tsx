@@ -57,7 +57,7 @@ export const CardBottom = ({ data, city, isBelowZero }: CardBottomProps) => {
         <div>
           {`${t('wind')}`}:{' '}
           <span className={s.value}>
-            {wind} {`${t('ms')}`}
+            {wind} {`${t(`${isCelsius ? 'ms' : 'knots'}`)}`}
           </span>
         </div>
         <div>
