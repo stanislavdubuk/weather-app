@@ -14,3 +14,13 @@
   grid-template-columns: repeat(auto-fill, 390px);
   gap: 20px;
 }
+
+@media (max-width: 420px) {
+  .root {
+    padding: 0;
+  }
+
+  .list {
+    display: block;
+  }
+}
