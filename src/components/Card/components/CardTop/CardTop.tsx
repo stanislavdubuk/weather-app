@@ -49,11 +49,7 @@ export const CardTop = ({ city, data, handleRemoveCard }: CardTopProps) => {
         <div className={s.date}>{getLocalTime(timezone, locale)}</div>
       </div>
       <div className={s.weather}>
-        <img
-          className={s.icon}
-          src={`/weather-app/img/${icon}.png`}
-          alt='icon'
-        />
+        <img className={s.icon} src={`/img/${icon}.png`} alt='icon' />
         <span>{weather}</span>
       </div>
     </div>
