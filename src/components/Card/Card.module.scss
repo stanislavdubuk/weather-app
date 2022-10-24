@@ -14,3 +14,9 @@
 .belowZero {
   background-color: var(--card-background-cold);
 }
+
+@media (max-width: 420px) {
+  .root {
+    margin-bottom: 10px;
+  }
+}
