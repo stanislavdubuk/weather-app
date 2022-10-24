@@ -13,6 +13,18 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, 390px);
   gap: 20px;
+
+  overflow: hidden;
+
+  // overflow-x: hidden;
+  // overflow-y: ;
+  // scrollbar-width: none;
+  // -ms-overflow-style: none;
+
+  // &::-webkit-scrollbar {
+  //   width: 0;
+  //   height: 0;
+  // }
 }
 
 @media (max-width: 420px) {

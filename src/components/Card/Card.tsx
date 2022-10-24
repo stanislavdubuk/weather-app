@@ -25,9 +25,9 @@ export const Card = ({ city, handleRemoveCard }: CardProps) => {
     `${city.name},${city.country}&lang=${languageSelector}`
   );
 
-  if (isLoading) return null;
+  if (isLoading || !data) return null;
 
-  const temp = Math.floor(data!.list[0]!.main.temp);
+  const temp = Math.floor(data.list[0]!.main.temp);
   const isBelowZero = temp < 0;
 
   return (
@@ -37,11 +37,11 @@ export const Card = ({ city, handleRemoveCard }: CardProps) => {
       layout
       className={cn(s.root, { [s.belowZero]: isBelowZero })}
     >
-      <CardTop city={city} data={data!} handleRemoveCard={handleRemoveCard} />
+      <CardTop city={city} data={data} handleRemoveCard={handleRemoveCard} />
 
-      <CardChart forecasts={data!.list} isBelowZero={isBelowZero} />
+      <CardChart forecasts={data.list} isBelowZero={isBelowZero} />
 
-      <CardBottom data={data!} isBelowZero={isBelowZero} />
+      <CardBottom data={data} isBelowZero={isBelowZero} />
     </motion.li>
   );
 };
