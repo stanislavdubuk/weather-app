@@ -4,7 +4,7 @@ import { Dispatch } from '@reduxjs/toolkit';
 import { add, setCurrentCity } from './citiesSlice';
 import { CitySearchType } from '../lib/types';
 
-const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
+const API_KEY = '50f1413b72d5eb20783f3d5e09ac2865';
 const SEARCH_API_KEY = 'qQkPKLawjqMGEAhS5xQaQg==XWLoGrOxDKjuaNCQ';
 
 export const getCityByCoords = async (
