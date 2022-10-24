@@ -9,6 +9,7 @@ import { NavbarOption } from './components/NavbarOption';
 import { useAppDispatch, useAppSelector } from '../../lib/hooks';
 import { setLanguage } from '../../store/citiesSlice';
 import { LANGUAGES } from '../../lib/constants';
+import { ELanguage } from '../../lib/enums';
 
 import s from './Navbar.module.scss';
 
@@ -19,7 +20,7 @@ export const Navbar = () => {
 
   const [showLangSelector, setShowLangSelector] = React.useState(false);
 
-  const handleLanguageChange = (language: string) => {
+  const handleLanguageChange = (language: ELanguage) => {
     dispatch(setLanguage(language));
 
     i18n.changeLanguage(language);

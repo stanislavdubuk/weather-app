@@ -3,25 +3,27 @@ import { useTranslation } from 'react-i18next';
 import cn from 'classnames';
 
 import { convertCtoF } from '../../../../lib/utils';
+import { ETemperature } from '../../../../lib/enums';
+import { CityData } from '../../../../lib/types';
 
 import s from './CardBottom.module.scss';
 
 interface CardBottomProps {
-  data: any;
+  data: CityData;
   isBelowZero: boolean;
 }
 
 export const CardBottom = ({ data, isBelowZero }: CardBottomProps) => {
   const { t } = useTranslation();
 
-  const [mode, setMode] = React.useState('celsius');
+  const [mode, setMode] = React.useState<ETemperature>(ETemperature.Celsius);
 
-  const isCelsius = mode === 'celsius';
-  const isFahrenheit = mode === 'fahrenheit';
+  const isCelsius = mode === ETemperature.Celsius;
+  const isFahrenheit = mode === ETemperature.Fahrenheit;
 
   const handleSwitchMode = () => {
-    if (isCelsius) setMode('fahrenheit');
-    if (isFahrenheit) setMode('celsius');
+    if (isCelsius) setMode(ETemperature.Fahrenheit);
+    if (isFahrenheit) setMode(ETemperature.Celsius);
   };
 
   const temp = Math.floor(data?.list[0].main.temp);

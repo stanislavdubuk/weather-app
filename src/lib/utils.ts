@@ -1,21 +1,26 @@
-export const getLocalTime = (timezone: number, locale: string) => {
-  const d = new Date();
-  const localTime = d.getTime();
-  const localOffset = d.getTimezoneOffset() * 60000;
-  const utc = localTime + localOffset;
-  const date = utc + 1000 * timezone;
+import { ELocale } from './enums';
+import { Forecast } from './types';
 
-  const dateObj = new Date(date);
+export const getLocalTime = (timezone: number, locale: ELocale) => {
+  const day = new Date();
+  const localTime = day.getTime();
+  const localOffset = day.getTimezoneOffset() * 60000;
+  const utc = localTime + localOffset;
+  const formattedDate = utc + 1000 * timezone;
+
+  const localDate = new Date(formattedDate);
 
   const hours =
-    dateObj.getHours() < 10 ? `0${dateObj.getHours()}` : dateObj.getHours();
+    localDate.getHours() < 10
+      ? `0${localDate.getHours()}`
+      : localDate.getHours();
 
   const minutes =
-    dateObj.getMinutes() < 10
-      ? `0${dateObj.getMinutes()}`
-      : dateObj.getMinutes();
+    localDate.getMinutes() < 10
+      ? `0${localDate.getMinutes()}`
+      : localDate.getMinutes();
 
-  return `${dateObj.getDate()} ${dateObj.toLocaleString(locale, {
+  return `${localDate.getDate()} ${localDate.toLocaleString(locale, {
     month: 'long',
   })}, ${hours}:${minutes}`;
 };
@@ -23,24 +28,32 @@ export const getLocalTime = (timezone: number, locale: string) => {
 export const convertCtoF = (celsius: number) =>
   Math.floor((celsius * 9) / 5 + 32);
 
-export const getHighestTempByDay = (forecasts: any) => {
-  const days = forecasts.reduce((days: any, forecast: any) => {
-    const date = forecast.dt_txt.split(' ')[0];
+export const getHighestTempByDay = (forecasts: Forecast[]) => {
+  const days = forecasts.reduce(
+    (
+      days: {
+        [key: string]: Forecast[];
+      },
+      forecast: Forecast
+    ) => {
+      const date = forecast.dt_txt.split(' ')[0];
 
-    if (!days[date]) {
-      days[date] = [];
-    }
+      if (!days[date]) {
+        days[date] = [];
+      }
 
-    days[date].push(forecast);
+      days[date].push(forecast);
 
-    return days;
-  }, {});
+      return days;
+    },
+    {}
+  );
 
   const temperatureByDay = Object.keys(days).map((date) => {
     return {
       date,
       highestTemp: Math.floor(
-        days[date].reduce((prev: any, current: any) =>
+        days[date].reduce((prev: Forecast, current: Forecast) =>
           prev.main.temp_max > current.main.temp_max ? prev : current
         ).main.temp_max
       ),

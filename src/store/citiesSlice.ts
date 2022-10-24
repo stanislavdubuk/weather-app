@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { ELanguage } from '../lib/enums';
 
 type CityType = {
   name: string;
@@ -8,13 +9,13 @@ type CityType = {
 interface ApplicationState {
   data: CityType[];
   currentCity: boolean;
-  language: string;
+  language: ELanguage;
 }
 
 const initialState: ApplicationState = {
   data: [],
   currentCity: false,
-  language: 'en',
+  language: ELanguage.EN,
 };
 
 export const citiesSlice = createSlice({
@@ -37,7 +38,7 @@ export const citiesSlice = createSlice({
       state.currentCity = action.payload;
     },
 
-    setLanguage: (state, action: PayloadAction<string>) => {
+    setLanguage: (state, action: PayloadAction<ELanguage>) => {
       state.language = action.payload;
     },
   },

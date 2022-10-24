@@ -2,15 +2,17 @@ import * as React from 'react';
 
 import { Svg } from '../../../Svg';
 
+import { ELanguage } from '../../../../lib/enums';
+
 import s from './NavbarOption.module.scss';
 
 interface NavbarOptionProps {
   option: {
-    value: string;
+    value: ELanguage;
     label: string;
   };
-  handleLanguageChange: (value: string) => void;
   isChosen: boolean;
+  handleLanguageChange: (language: ELanguage) => void;
 }
 
 export const NavbarOption = ({

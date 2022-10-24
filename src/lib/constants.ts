@@ -1,3 +1,5 @@
+import { ELanguage } from './enums';
+
 export const CARD_ANIMATION = {
   scale: 1,
   transition: {
@@ -8,15 +10,15 @@ export const CARD_ANIMATION = {
 
 export const LANGUAGES = [
   {
-    value: 'en',
+    value: ELanguage.EN,
     label: 'EN',
   },
   {
-    value: 'ru',
+    value: ELanguage.RU,
     label: 'RU',
   },
   {
-    value: 'ua',
+    value: ELanguage.UA,
     label: 'UA',
   },
 ];

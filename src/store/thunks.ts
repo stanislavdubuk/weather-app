@@ -1,8 +1,8 @@
-// import { updateStart, updateSuccess, updateFailed } from './countriesSlice';
-import { Dispatch } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { Dispatch } from '@reduxjs/toolkit';
 
 import { add, setCurrentCity } from './citiesSlice';
+import { CitySearchType } from '../lib/types';
 
 const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 const SEARCH_API_KEY = 'qQkPKLawjqMGEAhS5xQaQg==XWLoGrOxDKjuaNCQ';
@@ -40,7 +40,7 @@ export const getCitiesByName = async (cityName: string) => {
       config
     );
 
-    const options = res.data.map(function (item: any) {
+    const options = res.data.map(function (item: CitySearchType) {
       return {
         value: item.name,
         label: `${item.name}, ${item.country}`,

@@ -4,6 +4,7 @@ import cn from 'classnames';
 
 import { CityType } from '../../lib/types';
 import { CARD_ANIMATION } from '../../lib/constants';
+import { useAppSelector } from '../../lib/hooks';
 import { useGetForecastByNameQuery } from '../../store/services/forecast';
 
 import { CardTop } from './components/CardTop';
@@ -11,7 +12,6 @@ import { CardChart } from './components/CardChart';
 import { CardBottom } from './components/CardBottom';
 
 import s from './Card.module.scss';
-import { useAppSelector } from '../../lib/hooks';
 
 interface CardProps {
   city: CityType;
@@ -27,7 +27,7 @@ export const Card = ({ city, handleRemoveCard }: CardProps) => {
 
   if (isLoading) return null;
 
-  const temp = Math.floor(data?.list[0].main.temp);
+  const temp = Math.floor(data!.list[0]!.main.temp);
   const isBelowZero = temp < 0;
 
   return (
@@ -37,11 +37,11 @@ export const Card = ({ city, handleRemoveCard }: CardProps) => {
       layout
       className={cn(s.root, { [s.belowZero]: isBelowZero })}
     >
-      <CardTop city={city} data={data} handleRemoveCard={handleRemoveCard} />
+      <CardTop city={city} data={data!} handleRemoveCard={handleRemoveCard} />
 
-      <CardChart forecasts={data.list} isBelowZero={isBelowZero} />
+      <CardChart forecasts={data!.list} isBelowZero={isBelowZero} />
 
-      <CardBottom data={data} isBelowZero={isBelowZero} />
+      <CardBottom data={data!} isBelowZero={isBelowZero} />
     </motion.li>
   );
 };

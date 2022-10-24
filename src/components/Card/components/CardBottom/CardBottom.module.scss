@@ -19,7 +19,7 @@
 
     cursor: pointer;
 
-    color: #bbbbbb;
+    color: var(--grey-text);
   }
 }
 
@@ -28,7 +28,7 @@
 }
 
 .feels {
-  color: #bbbbbb;
+  color: var(--grey-text);
 }
 
 .right {
@@ -40,12 +40,12 @@
 }
 
 .value {
-  color: #eb9e10;
+  color: var(--orange);
   font-weight: 600;
 }
 
 .isBelowZero {
   .value {
-    color: #5076ff;
+    color: var(--blue);
   }
 }

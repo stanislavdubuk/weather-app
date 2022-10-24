@@ -13,9 +13,10 @@ import { getHighestTempByDay } from '../../../../lib/utils';
 import { CHART_OPTIONS } from '../../../../lib/constants';
 
 import s from './CardChart.module.scss';
+import { Forecast } from '../../../../lib/types';
 
 interface CardChartProps {
-  forecasts: any;
+  forecasts: Forecast[];
   isBelowZero: boolean;
 }
 

@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { CityData } from '../../lib/types';
 
 const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 
@@ -8,7 +9,7 @@ export const forecastApi = createApi({
     baseUrl: 'https://api.openweathermap.org/data/2.5/forecast',
   }),
   endpoints: (builder) => ({
-    getForecastByName: builder.query<any, string>({
+    getForecastByName: builder.query<CityData, string>({
       query: (query) => `?q=${query}&units=metric&appid=${API_KEY}`,
     }),
   }),
