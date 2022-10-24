@@ -22,6 +22,7 @@ export const getCityByCoords = async (
       id: Math.floor(Math.random() * 2000),
       name: res.data[0].name,
       mode: ETemperature.Celsius,
+      country: res.data[0].country,
     };
 
     dispatch(add(city));
